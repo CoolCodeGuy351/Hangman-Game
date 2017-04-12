@@ -30,43 +30,163 @@
 			<img src="assets/images/RockstarMan.gif">
 
 		</div>
-		<div class="col-lg-6">
 
+		<div id="content-div" class="col-lg-6">
+			
 			<p>Press any key to start the game</p>
             
             <hr>
             
-            <p>Wins: </p>
+            <p id="wins-line">Total wins: 0 </p>
+            
+            <hr>
+			<p>////////////////////////////</p>
+			<br>
+			<br>
+            <p id="spaces-line"><p>
+            <br>
+            <br>
+            <p>////////////////////////////</p>
+            <br>
+            <p id="guessed-line">Letters Guessed: 0 </p>
             
             <hr>
             
-            <p>Number of guesses remaining: </p>
+            <p id="remaining-line">Number of guesses remaining: 13</p>
+			
             
-            <hr>
-            
-            <p>Letters already guessed:</p>
-            
-            
-
+   
 		</div>
 	</div>
 </div>
 
+<script type="text/javascript">
+	
+// VARIABLES
+
+	var wins = 0;
+	var guessesRemaining = 13;
+	var lettersGuessed = 0;
+
+	var bandArray = ["metalica","beatles","U2","Nirvana","ACDC","Cream","Queen","Aerosmith","Temptations","Supremes"];
+	var randomNumber = Math.floor(Math.random() * bandArray.length);
+	var randomBand = bandArray[randomNumber];
+	var randomBandLowerCase = randomBand.toLowerCase();
+	var emptyLines = "_  ";
+	var emptyLineString = " ";
+	 
+
+	for(var i = 0; i < randomBand.length ; i++){
+		var emptyLineString =  emptyLineString + emptyLines;
+	}
+
+console.log(randomBandLowerCase);
+
+	document.onkeyup = function(event){
+
+		var userKey = event.key;
+		
+	}
 
 
+/* ???
+
+Need to loop through randomBand string (using array and push?)
+
+build empty array variable
+push each of randomBands letters to the array
+run through the array and check if userKey === any of the array index
+
+if yes, display that index of unto the page and remove the _ which was in that index place
+
+*/
+
+	
+
+	var htmlWins =    "<p>Total wins: " + wins + "</p>";
+
+	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
+         
+    var htmlGuessed =   "<p>Letters Guessed: " + /* Need to display which key was pressed per keyup*/  + "</p>";
+
+    var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";  	
+            
+               		
+	document.getElementById("wins-line").innerHTML = htmlWins;
+
+    document.getElementById("spaces-line").innerHTML = htmlSpaces;
+
+    document.getElementById("guessed-line").innerHTML = htmlGuessed;
+
+    document.getElementById("remaining-line").innerHTML = htmlRemaining;
 
 
+	/*
+
+	if(userKey === randomBandLowerCase.charAt(0)){
 
 
+		} else if (userKey === randomBandLowerCase.charAt(1)){
 
 
-<!-- BOOSTAP JS LINKS -->
+		} else if (userKey === randomBandLowerCase.charAt(2)){
+
+			
+		} else if (userKey === randomBandLowerCase.charAt(3)){
+
+			
+		} else if (userKey === randomBandLowerCase.charAt(4)){
+
+			
+		} else if (userKey === randomBandLowerCase.charAt(5)){
+
+			
+		} else if (userKey === randomBandLowerCase.charAt(6)){
+
+			
+		} else if (userKey === randomBandLowerCase.charAt(7)){
+
+			
+		} else if (userKey === randomBandLowerCase.charAt(8)){
+
+			
+		} else if (userKey === randomBandLowerCase.charAt(9)){
+
+			
+		} else {
+			lettersGuessed++
+		}
+
+///////////////////////////////////	
+
+	for(var i = 0; i < randomBand.length ; i++ ){
+		if( userKey === charset([i]) ){
+
+
+		}
+	}
+
+	for(var i = 0; i < randomBand.length ; i++){
+		getElementById("spaces").innerHTML
+	}
+
+	"<p>" + var spaceshtml = for(var i = 0; i < randomBand.length ; i++){
+						emptyLines.innerHTML;
+				}; + "</p>"    
+	
+	*/
+
+</script>
+
+
+<!-- BOOSTAP JS LINKS 
+
+
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-<!-- My Javascript external doc -->
-<script src="javascript.js"></script>
+-->
 
 </body>
 
