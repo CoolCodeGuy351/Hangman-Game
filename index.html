@@ -68,19 +68,32 @@
 	var guessesRemaining = 13;
 	var lettersGuessed = 0;
 
+	/// Create array with various bands
+
 	var bandArray = ["metalica","beatles","U2","Nirvana","ACDC","Cream","Queen","Aerosmith","Temptations","Supremes"];
+	var bandNameArray = [];
+	
 	var randomNumber = Math.floor(Math.random() * bandArray.length);
+
+	/// randomBand chooses a random band from our bandArray usng randomNumber and then changes it to lower case
+
 	var randomBand = bandArray[randomNumber];
 	var randomBandLowerCase = randomBand.toLowerCase();
+
+	//// The two below variables add X number of _ (underscores) which cignify the size of the chosen band
 	var emptyLines = "_  ";
 	var emptyLineString = " ";
-	 
+
+	//// This Loop loops through the random band name and both creates the correct number of empty
+	//// spaces and also populates the empty array bandNameArray with the individual characters of 
+	//// randomband
 
 	for(var i = 0; i < randomBand.length ; i++){
-		var emptyLineString =  emptyLineString + emptyLines;
+		emptyLineString = emptyLineString + emptyLines;
+		bandNameArray.push(randomBand.charAt(i));
 	}
 
-console.log(randomBandLowerCase);
+	console.log(bandNameArray);
 
 	document.onkeyup = function(event){
 
