@@ -136,15 +136,11 @@
 		for(var j = 0 ; j < bandNameArray.length ; i++){
 
 			if(userKey === bandNameArray[j]){
-				var a = userKey;
-				bandNameArray[j] =a;
+				var a = userKey; 
+				bandNameArray[j] = a;
 				arrayOfEmptyLines[j] = a;
 				console.log("After loop bandNameArray[j]: " + bandNameArray[j]);
 				console.log("After loop arrayOfEmptyLines[j]: " +bandNameArray[j]);
-
-				break;
-
-				
 
 			} else {
 
@@ -165,13 +161,19 @@
 
 	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
 
-    var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";  	
-                 		
+    var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";
+
+    var htmlArrayLines = "<p>" + arrayOfEmptyLines + " </p>"; 	
+          		
 	document.getElementById("wins-line").innerHTML = htmlWins;
 
-    document.getElementById("spaces-line").innerHTML = htmlSpaces;
+    document.getElementById("spaces-line").innerHTML = htmlArrayLines;
 
     document.getElementById("remaining-line").innerHTML = htmlRemaining;
+
+
+
+
 
 
 }
