@@ -42,14 +42,12 @@
             <hr>
 			<p>////////////////////////////</p>
 			<br>
-			<br>
             <p id="spaces-line"><p>
-            <br>
             <br>
             <p>////////////////////////////</p>
             <br>
-            <p id="guessed-line">Letters Guessed: 0 </p>
-            
+            <p id="guessed-line">Letters Guessed:<span id="spanMain"></span></p>
+      
             <hr>
             
             <p id="remaining-line">Number of guesses remaining: 13</p>
@@ -67,7 +65,7 @@
 	var wins = 0;
 	var guessesRemaining = 13;
 	var lettersGuessed = 0;
-
+	var incorrect = 0;
 	/// Create array with various bands
 
 	var bandArray = ["metalica","beatles","U2","Nirvana","ACDC","Cream","Queen","Aerosmith","Temptations","Supremes"];
@@ -80,26 +78,114 @@
 	var randomBand = bandArray[randomNumber];
 	var randomBandLowerCase = randomBand.toLowerCase();
 
-	//// The two below variables add X number of _ (underscores) which cignify the size of the chosen band
+	//// The two below variables add X number of _ (underscores) which cignify the length of the randomly chosen band
 	var emptyLines = "_  ";
-	var emptyLineString = " ";
+	var emptyLineString = "";
+	var arrayOfEmptyLines = [];
+/*
+	function reset(){
 
+	}
+*/
 	//// This Loop loops through the random band name and both creates the correct number of empty
 	//// spaces and also populates the empty array bandNameArray with the individual characters of 
-	//// randomband
+	//// randomband. 
+
+	//// It also creates an additional array which has empty spaces to be used when the user guesses the correct letter.
 
 	for(var i = 0; i < randomBand.length ; i++){
+
 		emptyLineString = emptyLineString + emptyLines;
+
+		arrayOfEmptyLines.push('_');
+
 		bandNameArray.push(randomBand.charAt(i));
 	}
 
-	console.log(bandNameArray);
+
+
+
+
+	/// Need to figure out how to swap the _ (underscores) when the user chooses the correct letter
+
+	// var arraySpaces = arrayOfEmptyLines.join(' ')
+
+	console.log("bandNameArray: " + bandNameArray);
+	console.log("emptyLineString: " + emptyLineString);
+	console.log("arrayOfEmptyLines: " + arrayOfEmptyLines);
+	console.log("bandNameArray Position 0: " + bandNameArray[0]);
+	console.log("bandNameArray Position 1: " + bandNameArray[1]);
+	console.log("bandNameArray Position 2: " + bandNameArray[2]);
+
+	console.log(arrayOfEmptyLines[0]);
+	console.log(arrayOfEmptyLines[1]);
+	console.log(arrayOfEmptyLines[2]);
+
+	var incorrect = 0;
 
 	document.onkeyup = function(event){
 
+		var oldSpan = document.getElementById("spanMain");
 		var userKey = event.key;
-		
+		console.log(userKey);
+
+
+		for(var j = 0 ; j < bandNameArray.length ; i++){
+
+			if(userKey === bandNameArray[j]){
+
+				bandNameArray[j] = userKey;
+				arrayOfEmptyLines[j] = userKey;
+				break;
+
+			} else {
+
+				incorrect++;
+
+
+				if(incorrect === bandNameArray.length){
+					guessesRemaining--;
+					function incorrectReset(){
+						incorrect = 0;
+					}
+
+
+				} else {
+
+					var newSpan = document.createElement("span");
+
+					document.getElementById("spanMain").innerHTML = userKey;
+
+					oldSpan.appendChild(newSpan);
+				}
+			}
+
+		}
+
+
+		/*
+
+		if(userKey === bandNameArray[0]){
+
+			bandNameArray[0] = userKey;
+			arrayOfEmptyLines[0] = userKey;
+			/*
+			document.getElementById("guessed-line").innerHTML = secondLetter;
+			
+			//need to .innerHTML userKey in the guessed line on the 
+		} else if(userKey === bandNameArray[1]){
+
+			userKey = emptyLineString[1];
+
+			var secondLetter = userKey;
+			
+			document.getElementById("guessed-line").innerHTML = secondLetter;
+			
+		} 
+
+		*/
 	}
+
 
 
 /* ???
@@ -112,6 +198,15 @@ run through the array and check if userKey === any of the array index
 
 if yes, display that index of unto the page and remove the _ which was in that index place
 
+
+/////
+
+
+array of empty lines
+&
+randomBandarray
+need to be replaced by the index(letter) of the band name
+
 */
 
 	
@@ -119,18 +214,18 @@ if yes, display that index of unto the page and remove the _ which was in that i
 	var htmlWins =    "<p>Total wins: " + wins + "</p>";
 
 	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
-         
-    var htmlGuessed =   "<p>Letters Guessed: " + /* Need to display which key was pressed per keyup*/  + "</p>";
-
+/*         
+    var htmlGuessed =   "<p>Letters Guessed: " +  Need to display which key was pressed per keyup + "</p>";
+*/
     var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";  	
             
                		
 	document.getElementById("wins-line").innerHTML = htmlWins;
 
     document.getElementById("spaces-line").innerHTML = htmlSpaces;
-
+/*
     document.getElementById("guessed-line").innerHTML = htmlGuessed;
-
+*/
     document.getElementById("remaining-line").innerHTML = htmlRemaining;
 
 
