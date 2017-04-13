@@ -64,29 +64,31 @@
 
 	var wins = 0;
 	var guessesRemaining = 13;
-	var lettersGuessed = 0;
 	var incorrect = 0;
+	//// The two below variables add X number of _ (underscores) which cignify the length of the randomly chosen band
+	var emptyLines = "_  ";
+	var emptyLineString = "";
+	
 	/// Create array with various bands
 
-	var bandArray = ["metalica","beatles","U2","Nirvana","ACDC","Cream","Queen","Aerosmith","Temptations","Supremes"];
+	var bandArray = ["metalica","beatles","Nirvana","ACDC","Cream","Queen","Aerosmith","Temptations","Supremes"];
+
+	// Create an empty array in which each index is one letter from the randomBand to be chosen
 	var bandNameArray = [];
+
+	// Create an empty array in which each randomBand letter represents one _'s (underscore)
+	var arrayOfEmptyLines = [];
+
+	// Random Number which will choose random band from bandArray
 	
 	var randomNumber = Math.floor(Math.random() * bandArray.length);
 
-	/// randomBand chooses a random band from our bandArray usng randomNumber and then changes it to lower case
+	/// randomBand variable is assigned a random band from our bandArray usng randomNumber and then changes it to lower case
 
 	var randomBand = bandArray[randomNumber];
 	var randomBandLowerCase = randomBand.toLowerCase();
 
-	//// The two below variables add X number of _ (underscores) which cignify the length of the randomly chosen band
-	var emptyLines = "_  ";
-	var emptyLineString = "";
-	var arrayOfEmptyLines = [];
-/*
-	function reset(){
 
-	}
-*/
 	//// This Loop loops through the random band name and both creates the correct number of empty
 	//// spaces and also populates the empty array bandNameArray with the individual characters of 
 	//// randomband. 
@@ -99,7 +101,7 @@
 
 		arrayOfEmptyLines.push('_');
 
-		bandNameArray.push(randomBand.charAt(i));
+		bandNameArray.push(randomBandLowerCase.charAt(i));
 	}
 
 
@@ -115,17 +117,18 @@
 	console.log("arrayOfEmptyLines: " + arrayOfEmptyLines);
 	console.log("bandNameArray Position 0: " + bandNameArray[0]);
 	console.log("bandNameArray Position 1: " + bandNameArray[1]);
-	console.log("bandNameArray Position 2: " + bandNameArray[2]);
+	
 
-	console.log(arrayOfEmptyLines[0]);
-	console.log(arrayOfEmptyLines[1]);
-	console.log(arrayOfEmptyLines[2]);
-
-	var incorrect = 0;
+	function incorrectReset(){
+		incorrect = 0;
+	}
 
 	document.onkeyup = function(event){
 
+		
 		var oldSpan = document.getElementById("spanMain");
+		
+
 		var userKey = event.key;
 		console.log(userKey);
 
@@ -133,156 +136,46 @@
 		for(var j = 0 ; j < bandNameArray.length ; i++){
 
 			if(userKey === bandNameArray[j]){
+				var a = userKey;
+				bandNameArray[j] =a;
+				arrayOfEmptyLines[j] = a;
+				console.log("After loop bandNameArray[j]: " + bandNameArray[j]);
+				console.log("After loop arrayOfEmptyLines[j]: " +bandNameArray[j]);
 
-				bandNameArray[j] = userKey;
-				arrayOfEmptyLines[j] = userKey;
 				break;
+
+				
 
 			} else {
 
-				incorrect++;
+				var newSpan = document.createElement("span");
+				newSpan.innerHTML = userKey + " ";
+				oldSpan.appendChild(newSpan);
 
 
-				if(incorrect === bandNameArray.length){
-					guessesRemaining--;
-					function incorrectReset(){
-						incorrect = 0;
-					}
-
-
-				} else {
-
-					var newSpan = document.createElement("span");
-
-					document.getElementById("spanMain").innerHTML = userKey;
-
-					oldSpan.appendChild(newSpan);
-				}
+				guessesRemaining--;
+				console.log(guessesRemaining);
+				console.log(newSpan.innerHTML);
+				break;
+	
 			}
-
-		}
-
-
-		/*
-
-		if(userKey === bandNameArray[0]){
-
-			bandNameArray[0] = userKey;
-			arrayOfEmptyLines[0] = userKey;
-			/*
-			document.getElementById("guessed-line").innerHTML = secondLetter;
-			
-			//need to .innerHTML userKey in the guessed line on the 
-		} else if(userKey === bandNameArray[1]){
-
-			userKey = emptyLineString[1];
-
-			var secondLetter = userKey;
-			
-			document.getElementById("guessed-line").innerHTML = secondLetter;
-			
-		} 
-
-		*/
 	}
 
-
-
-/* ???
-
-Need to loop through randomBand string (using array and push?)
-
-build empty array variable
-push each of randomBands letters to the array
-run through the array and check if userKey === any of the array index
-
-if yes, display that index of unto the page and remove the _ which was in that index place
-
-
-/////
-
-
-array of empty lines
-&
-randomBandarray
-need to be replaced by the index(letter) of the band name
-
-*/
-
-	
-
-	var htmlWins =    "<p>Total wins: " + wins + "</p>";
+	var htmlWins = "<p>Total wins: " + wins + "</p>";
 
 	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
-/*         
-    var htmlGuessed =   "<p>Letters Guessed: " +  Need to display which key was pressed per keyup + "</p>";
-*/
+
     var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";  	
-            
-               		
+                 		
 	document.getElementById("wins-line").innerHTML = htmlWins;
 
     document.getElementById("spaces-line").innerHTML = htmlSpaces;
-/*
-    document.getElementById("guessed-line").innerHTML = htmlGuessed;
-*/
+
     document.getElementById("remaining-line").innerHTML = htmlRemaining;
 
 
-	/*
+}
 
-	if(userKey === randomBandLowerCase.charAt(0)){
-
-
-		} else if (userKey === randomBandLowerCase.charAt(1)){
-
-
-		} else if (userKey === randomBandLowerCase.charAt(2)){
-
-			
-		} else if (userKey === randomBandLowerCase.charAt(3)){
-
-			
-		} else if (userKey === randomBandLowerCase.charAt(4)){
-
-			
-		} else if (userKey === randomBandLowerCase.charAt(5)){
-
-			
-		} else if (userKey === randomBandLowerCase.charAt(6)){
-
-			
-		} else if (userKey === randomBandLowerCase.charAt(7)){
-
-			
-		} else if (userKey === randomBandLowerCase.charAt(8)){
-
-			
-		} else if (userKey === randomBandLowerCase.charAt(9)){
-
-			
-		} else {
-			lettersGuessed++
-		}
-
-///////////////////////////////////	
-
-	for(var i = 0; i < randomBand.length ; i++ ){
-		if( userKey === charset([i]) ){
-
-
-		}
-	}
-
-	for(var i = 0; i < randomBand.length ; i++){
-		getElementById("spaces").innerHTML
-	}
-
-	"<p>" + var spaceshtml = for(var i = 0; i < randomBand.length ; i++){
-						emptyLines.innerHTML;
-				}; + "</p>"    
-	
-	*/
 
 </script>
 
