@@ -64,19 +64,13 @@
 
 	var wins = 0;
 	var guessesRemaining = 13;
-	var incorrect = 0;
-	//// The two below variables add X number of _ (underscores) which cignify the length of the randomly chosen band
+	/// Empty line and empty line string
+
 	var emptyLines = "_  ";
 	var emptyLineString = "";
-	
-	/// Create array with various bands
 
 	var bandArray = ["metalica","beatles","Nirvana","ACDC","Cream","Queen","Aerosmith","Temptations","Supremes"];
-
-	// Create an empty array in which each index is one letter from the randomBand to be chosen
 	var bandNameArray = [];
-
-	// Create an empty array in which each randomBand letter represents one _'s (underscore)
 	var arrayOfEmptyLines = [];
 
 	// Random Number which will choose random band from bandArray
@@ -88,7 +82,6 @@
 	var randomBand = bandArray[randomNumber];
 	var randomBandLowerCase = randomBand.toLowerCase();
 
-
 	//// This Loop loops through the random band name and both creates the correct number of empty
 	//// spaces and also populates the empty array bandNameArray with the individual characters of 
 	//// randomband. 
@@ -96,17 +89,10 @@
 	//// It also creates an additional array which has empty spaces to be used when the user guesses the correct letter.
 
 	for(var i = 0; i < randomBand.length ; i++){
-
 		emptyLineString = emptyLineString + emptyLines;
-
 		arrayOfEmptyLines.push('_');
-
 		bandNameArray.push(randomBandLowerCase.charAt(i));
 	}
-
-
-
-
 
 	/// Need to figure out how to swap the _ (underscores) when the user chooses the correct letter
 
@@ -119,30 +105,52 @@
 	console.log("bandNameArray Position 1: " + bandNameArray[1]);
 	
 
-	function incorrectReset(){
-		incorrect = 0;
-	}
-
 	document.onkeyup = function(event){
 
-		
+		/*
 		var oldSpan = document.getElementById("spanMain");
-		
-
+		*/
 		var userKey = event.key;
 		console.log(userKey);
 
+		if(randomBand.indexOf(userKey) === -1){
+			guessesRemaining--
+			var newSpan = document.createElement("span");
+				newSpan.innerHTML = userKey + " ";
+				oldSpan.appendChild(newSpan);
 
+		}else if(randomBand.indexOf(userKey) !== -1){
+			for(var j = 0 ; j < bandNameArray.length ; i++){
+
+			}
+		}
+
+		/*
+		for(var j = 0 ; j < bandNameArray.length ; i++){
+			while(userKey === bandNameArray[i]){
+				var a = userKey;
+				bandNameArray[j] = a;
+				arrayOfEmptyLines[j] =a;
+				console.log("After loop bandNameArray[j]: " + bandNameArray[j]);
+				console.log("After loop arrayOfEmptyLines[j]: " +bandNameArray[j]);
+			}
+		}*/
+
+
+
+
+
+/*
 		for(var j = 0 ; j < bandNameArray.length ; i++){
 
-			if(userKey === bandNameArray[j]){
+			while(userKey === bandNameArray[j]){
 				var a = userKey; 
 				bandNameArray[j] = a;
 				arrayOfEmptyLines[j] = a;
 				console.log("After loop bandNameArray[j]: " + bandNameArray[j]);
 				console.log("After loop arrayOfEmptyLines[j]: " +bandNameArray[j]);
 
-			} else {
+			} if(userKey === bandNameArray[j]) {
 
 				var newSpan = document.createElement("span");
 				newSpan.innerHTML = userKey + " ";
@@ -156,7 +164,7 @@
 	
 			}
 	}
-
+*/
 	var htmlWins = "<p>Total wins: " + wins + "</p>";
 
 	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
