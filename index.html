@@ -64,6 +64,7 @@
 
 	var wins = 0;
 	var guessesRemaining = 13;
+	var lettercount = 0;
 	/// Empty line and empty line string
 
 	var emptyLines = "_  ";
@@ -101,13 +102,17 @@
 	console.log("bandNameArray: " + bandNameArray);
 	console.log("emptyLineString: " + emptyLineString);
 	console.log("arrayOfEmptyLines: " + arrayOfEmptyLines);
-	
+
+	function reset(){
+
+		guessesRemaining = 13;
+		randomBandLowerCase = randomBand.toLowerCase();
+	}
 
 	document.onkeyup = function(event){
 
 		userKey = event.key;
-		console.log(userKey);
-		console.log(randomBand);
+		
 
 		if(randomBandLowerCase.indexOf(userKey) === -1){
 			
@@ -132,46 +137,51 @@
 				
 					if(userKey === bandNameArray[j]){
 
-						console.log("In lat if loop before splice");
+						lettercount++;
+
 						arrayOfEmptyLines.splice([j], 1, userKey);
 						bandNameArray.splice([j], 1,  userKey);
 
-						/*
-						var oldSpace = document.getElementById("spaces-line");
-						var newSpace = document.createElement("p");
-							newSpace.innerHTML = bandNameArray;
-							oldSpace.appendChild(newSpace);
-						*/
+						// render line string of empty lines
+						var htmlArrayLines = "<p>" + arrayOfEmptyLines + " </p>"; 
+						document.getElementById("spaces-line").innerHTML = htmlArrayLines;
 
-						console.log("Last Console / Updated bandNameArray[j]: " + bandNameArray[j]);
-						console.log("Last Console / Updated arrayOfEmptyLines[j]: " + arrayOfEmptyLines[j]);	
-					} else {
-						break;
-					}	
+						
+
+						if(lettercount === bandNameArray.length){
+
+
+							wins++
+
+							var newWinLine = "<p>Total wins: " + wins + "</p>";
+    						document.getElementById("wins-line").innerHTML = newWinLine;
+
+							reset();
+
+							break;
+						}
+
+					}
 
 			
 		}
-/* for(var j = 0 ; j < bandNameArray.length ; i++){
 
-			}
+}
+}
+
+
+
+/* 
+
+for(var i = 0; i < randomBand.length ; i++){
+			arrayOfEmptyLines.push('_');
+			bandNameArray.push(randomBandLowerCase.charAt(i));
+		} 
+
+		var newEmptyLineString = arrayOfEmptyLines;
+		document.getElementById("spaces-lin").innerHTML = newEmptyLineString;
+
 */
-	var htmlWins = "<p>Total wins: " + wins + "</p>";
-
-	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
-
-
-    var htmlArrayLines = "<p>" + arrayOfEmptyLines + " </p>"; 	
-          		
-	document.getElementById("wins-line").innerHTML = htmlWins;
-
-    document.getElementById("spaces-line").innerHTML = htmlArrayLines;
-
-    
-
-
-}
-}
-
 		/*
 		for(var j = 0 ; j < bandNameArray.length ; i++){
 			while(userKey === bandNameArray[i]){
