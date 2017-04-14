@@ -107,23 +107,70 @@
 
 	document.onkeyup = function(event){
 
-		/*
-		var oldSpan = document.getElementById("spanMain");
-		*/
 		var userKey = event.key;
 		console.log(userKey);
 
 		if(randomBand.indexOf(userKey) === -1){
-			guessesRemaining--
+			console.log("made it to if");
+			console.log("randomBand.indexOf(userKey)HELLO: " + randomBand.indexOf(userKey));
+			guessesRemaining = guessesRemaining-1;
+			console.log("WTF");
+			
+			//Render incorrect guess to html doc
+			var oldSpan = document.getElementById("spanMain");
 			var newSpan = document.createElement("span");
-				newSpan.innerHTML = userKey + " ";
+				newSpan.innerHTML = " " + userKey;
 				oldSpan.appendChild(newSpan);
+			
 
 		}else if(randomBand.indexOf(userKey) !== -1){
+
 			for(var j = 0 ; j < bandNameArray.length ; i++){
 
-			}
+					if(userKey === bandNameArray[j]){
+						
+						arrayOfEmptyLines.splice([j], userKey);
+						bandNameArray.splice([j], userKey);
+
+						var oldSpace = document.getElementById("spaces-line");
+						var newSpace = document.createElement("p");
+							newSpace.innerHTML = bandNameArray;
+							oldSpace.appendChild(newSpace);
+
+
+						console.log("Last Console / Updated bandNameArray[j]: " + bandNameArray[j]);
+						console.log("Last Console / Updated arrayOfEmptyLines[j]: " + arrayOfEmptyLines[j]);	
+					} else {
+						break;
+					}	
+
+			
 		}
+
+
+/* for(var j = 0 ; j < bandNameArray.length ; i++){
+
+			}
+*/
+
+
+	var htmlWins = "<p>Total wins: " + wins + "</p>";
+
+	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
+
+    var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";
+
+    var htmlArrayLines = "<p>" + arrayOfEmptyLines + " </p>"; 	
+          		
+	document.getElementById("wins-line").innerHTML = htmlWins;
+
+    document.getElementById("spaces-line").innerHTML = htmlArrayLines;
+
+    document.getElementById("remaining-line").innerHTML = htmlRemaining;
+
+
+}
+}
 
 		/*
 		for(var j = 0 ; j < bandNameArray.length ; i++){
@@ -135,11 +182,6 @@
 				console.log("After loop arrayOfEmptyLines[j]: " +bandNameArray[j]);
 			}
 		}*/
-
-
-
-
-
 /*
 		for(var j = 0 ; j < bandNameArray.length ; i++){
 
@@ -165,39 +207,7 @@
 			}
 	}
 */
-	var htmlWins = "<p>Total wins: " + wins + "</p>";
-
-	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
-
-    var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";
-
-    var htmlArrayLines = "<p>" + arrayOfEmptyLines + " </p>"; 	
-          		
-	document.getElementById("wins-line").innerHTML = htmlWins;
-
-    document.getElementById("spaces-line").innerHTML = htmlArrayLines;
-
-    document.getElementById("remaining-line").innerHTML = htmlRemaining;
-
-
-
-
-
-
-}
-
-
 </script>
-
-
-<!-- BOOSTAP JS LINKS 
-
-
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
--->
 
 </body>
 
