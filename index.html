@@ -69,7 +69,7 @@
 	var emptyLines = "_  ";
 	var emptyLineString = "";
 
-	var bandArray = ["metalica","beatles","Nirvana","ACDC","Cream","Queen","Aerosmith","Temptations","Supremes"];
+	var bandArray = ["metalica","beatles","nirvana","acdc","cream","queen","aerosmith","temptations","supremes"];
 	var bandNameArray = [];
 	var arrayOfEmptyLines = [];
 
@@ -101,42 +101,47 @@
 	console.log("bandNameArray: " + bandNameArray);
 	console.log("emptyLineString: " + emptyLineString);
 	console.log("arrayOfEmptyLines: " + arrayOfEmptyLines);
-	console.log("bandNameArray Position 0: " + bandNameArray[0]);
-	console.log("bandNameArray Position 1: " + bandNameArray[1]);
 	
 
 	document.onkeyup = function(event){
 
-		var userKey = event.key;
+		userKey = event.key;
 		console.log(userKey);
+		console.log(randomBand);
 
-		if(randomBand.indexOf(userKey) === -1){
-			console.log("made it to if");
-			console.log("randomBand.indexOf(userKey)HELLO: " + randomBand.indexOf(userKey));
-			guessesRemaining = guessesRemaining-1;
-			console.log("WTF");
+		if(randomBandLowerCase.indexOf(userKey) === -1){
 			
+			guessesRemaining--;
+			console.log("Guesses remaining: " + guessesRemaining);
+
 			//Render incorrect guess to html doc
 			var oldSpan = document.getElementById("spanMain");
 			var newSpan = document.createElement("span");
 				newSpan.innerHTML = " " + userKey;
 				oldSpan.appendChild(newSpan);
+
+			//render guesses remaining
+
+			var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";
+    		document.getElementById("remaining-line").innerHTML = htmlRemaining;
+
 			
+		}else if(randomBandLowerCase.indexOf(userKey) !== -1){
 
-		}else if(randomBand.indexOf(userKey) !== -1){
-
-			for(var j = 0 ; j < bandNameArray.length ; i++){
-
+			for(var j = 0 ; j < bandNameArray.length ; j++){
+				
 					if(userKey === bandNameArray[j]){
-						
-						arrayOfEmptyLines.splice([j], userKey);
-						bandNameArray.splice([j], userKey);
 
+						console.log("In lat if loop before splice");
+						arrayOfEmptyLines.splice([j], 1, userKey);
+						bandNameArray.splice([j], 1,  userKey);
+
+						/*
 						var oldSpace = document.getElementById("spaces-line");
 						var newSpace = document.createElement("p");
 							newSpace.innerHTML = bandNameArray;
 							oldSpace.appendChild(newSpace);
-
+						*/
 
 						console.log("Last Console / Updated bandNameArray[j]: " + bandNameArray[j]);
 						console.log("Last Console / Updated arrayOfEmptyLines[j]: " + arrayOfEmptyLines[j]);	
@@ -146,19 +151,14 @@
 
 			
 		}
-
-
 /* for(var j = 0 ; j < bandNameArray.length ; i++){
 
 			}
 */
-
-
 	var htmlWins = "<p>Total wins: " + wins + "</p>";
 
 	var htmlSpaces = "<p>" + emptyLineString + "</p>";  
 
-    var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";
 
     var htmlArrayLines = "<p>" + arrayOfEmptyLines + " </p>"; 	
           		
@@ -166,7 +166,7 @@
 
     document.getElementById("spaces-line").innerHTML = htmlArrayLines;
 
-    document.getElementById("remaining-line").innerHTML = htmlRemaining;
+    
 
 
 }
