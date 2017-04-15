@@ -38,6 +38,7 @@
             <hr>
             
             <p id="wins-line">Total wins: 0 </p>
+            <p id="lose-line">Total Losses: 0</p>
             
             <hr>
 			<p>////////////////////////////</p>
@@ -46,7 +47,7 @@
             <br>
             <p>////////////////////////////</p>
             <br>
-            <p id="guessed-line">Letters Guessed:<span id="spanMain"></span></p>
+            <p id="guessed-line">Letters Guessed:</p>
       
             <hr>
             
@@ -65,6 +66,7 @@
 	var wins = 0;
 	var guessesRemaining = 13;
 	var lettercount = 0;
+	var losses = 0;
 	/// Empty line and empty line string
 
 	var emptyLines = "_  ";
@@ -73,6 +75,7 @@
 	var bandArray = ["metalica","beatles","nirvana","acdc","cream","queen","aerosmith","temptations","supremes"];
 	var bandNameArray = [];
 	var arrayOfEmptyLines = [];
+	var wrongGuesses = [];
 
 	// Random Number which will choose random band from bandArray
 	
@@ -88,26 +91,68 @@
 	//// randomband. 
 
 	//// It also creates an additional array which has empty spaces to be used when the user guesses the correct letter.
-
 	for(var i = 0; i < randomBand.length ; i++){
-		emptyLineString = emptyLineString + emptyLines;
-		arrayOfEmptyLines.push('_');
-		bandNameArray.push(randomBandLowerCase.charAt(i));
-	}
+				emptyLineString = emptyLineString + emptyLines;
+				arrayOfEmptyLines.push('_');
+				bandNameArray.push(randomBandLowerCase.charAt(i));
+				console.log('test');
+			}
 
+	document.getElementById("spaces-line").innerHTML = "<p>" + emptyLineString + "</p>";
 	/// Need to figure out how to swap the _ (underscores) when the user chooses the correct letter
 
 	// var arraySpaces = arrayOfEmptyLines.join(' ')
 
-	console.log("bandNameArray: " + bandNameArray);
-	console.log("emptyLineString: " + emptyLineString);
-	console.log("arrayOfEmptyLines: " + arrayOfEmptyLines);
-
 	function reset(){
 
-		guessesRemaining = 13;
-		randomBandLowerCase = randomBand.toLowerCase();
-	}
+			wins = 0;
+			guessesRemaining = 13;
+			lettercount = 0;
+			/// Empty line and empty line string
+
+			emptyLines = "_ ";
+			emptyLineString = "";
+
+			bandArray = ["metalica","beatles","nirvana","acdc","cream","queen","aerosmith","temptations","supremes"];
+			bandNameArray = [];
+			arrayOfEmptyLines = [];
+			wrongGuesses = [];
+
+	// Random Number which will choose random band from bandArray
+	
+			randomNumber = Math.floor(Math.random() * bandArray.length);
+
+	/// randomBand variable is assigned a random band from our bandArray usng randomNumber and then changes it to lower case
+
+			randomBand = bandArray[randomNumber];
+			randomBandLowerCase = randomBand.toLowerCase();
+			
+
+			for(var i = 0; i < randomBand.length ; i++){
+				emptyLineString = emptyLineString + emptyLines;
+				arrayOfEmptyLines.push('_');
+				bandNameArray.push(randomBandLowerCase.charAt(i));
+				console.log('test');
+			}
+
+			document.getElementById("spaces-line").innerHTML = "<p>" + emptyLineString + "</p>";
+
+
+			htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";
+    		document.getElementById("remaining-line").innerHTML = htmlRemaining;
+
+
+    		document.getElementById('guessed-line').value=null;
+
+
+
+}
+	//// This Loop loops through the random band name and both creates the correct number of empty
+	//// spaces and also populates the empty array bandNameArray with the individual characters of 
+	//// randomband. 
+
+	//// It also creates an additional array which has empty spaces to be used when the user guesses the correct letter.
+	console.log(bandNameArray);
 
 	document.onkeyup = function(event){
 
@@ -117,18 +162,35 @@
 		if(randomBandLowerCase.indexOf(userKey) === -1){
 			
 			guessesRemaining--;
-			console.log("Guesses remaining: " + guessesRemaining);
+			wrongGuesses.push(event.key);
 
+			
 			//Render incorrect guess to html doc
+			var guessedLetters = "<p>Letters Guessed: " + wrongGuesses + "</p>";
+    		document.getElementById("guessed-line").innerHTML = guessedLetters;
+
+
+			/*
 			var oldSpan = document.getElementById("spanMain");
 			var newSpan = document.createElement("span");
 				newSpan.innerHTML = " " + userKey;
 				oldSpan.appendChild(newSpan);
+			*/
 
-			//render guesses remaining
 
 			var htmlRemaining = "<p>Number of guesses remaining: " + guessesRemaining + "</p>";
     		document.getElementById("remaining-line").innerHTML = htmlRemaining;
+
+    		if(guessesRemaining === 0){
+    			losses++;
+
+    			htmlLose = "<p>Total Losses: " + losses + "</p>";
+    			document.getElementById("lose-line").innerHTML = htmlLose;
+
+
+    			reset();
+    			
+    		}
 
 			
 		}else if(randomBandLowerCase.indexOf(userKey) !== -1){
@@ -146,7 +208,6 @@
 						var htmlArrayLines = "<p>" + arrayOfEmptyLines + " </p>"; 
 						document.getElementById("spaces-line").innerHTML = htmlArrayLines;
 
-						
 
 						if(lettercount === bandNameArray.length){
 
@@ -158,7 +219,15 @@
 
 							reset();
 
-							break;
+						}
+
+						if(guessesRemaining === 0){
+							losses++
+
+							htmlLose = "<p>Total Losses: " + losses + "</p>";
+    						document.getElementById("lose-line").innerHTML = htmlLose;
+
+							reset()
 						}
 
 					}
@@ -170,53 +239,6 @@
 }
 
 
-
-/* 
-
-for(var i = 0; i < randomBand.length ; i++){
-			arrayOfEmptyLines.push('_');
-			bandNameArray.push(randomBandLowerCase.charAt(i));
-		} 
-
-		var newEmptyLineString = arrayOfEmptyLines;
-		document.getElementById("spaces-lin").innerHTML = newEmptyLineString;
-
-*/
-		/*
-		for(var j = 0 ; j < bandNameArray.length ; i++){
-			while(userKey === bandNameArray[i]){
-				var a = userKey;
-				bandNameArray[j] = a;
-				arrayOfEmptyLines[j] =a;
-				console.log("After loop bandNameArray[j]: " + bandNameArray[j]);
-				console.log("After loop arrayOfEmptyLines[j]: " +bandNameArray[j]);
-			}
-		}*/
-/*
-		for(var j = 0 ; j < bandNameArray.length ; i++){
-
-			while(userKey === bandNameArray[j]){
-				var a = userKey; 
-				bandNameArray[j] = a;
-				arrayOfEmptyLines[j] = a;
-				console.log("After loop bandNameArray[j]: " + bandNameArray[j]);
-				console.log("After loop arrayOfEmptyLines[j]: " +bandNameArray[j]);
-
-			} if(userKey === bandNameArray[j]) {
-
-				var newSpan = document.createElement("span");
-				newSpan.innerHTML = userKey + " ";
-				oldSpan.appendChild(newSpan);
-
-
-				guessesRemaining--;
-				console.log(guessesRemaining);
-				console.log(newSpan.innerHTML);
-				break;
-	
-			}
-	}
-*/
 </script>
 
 </body>
